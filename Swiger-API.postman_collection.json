@@ -1,0 +1,663 @@
+{
+	"info": {
+		"_postman_id": "0a6ec33d-01ad-47d7-9210-0c034d79ab8a",
+		"name": "Swiger-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23033572",
+		"_collection_link": "https://planetary-desert-131423.postman.co/workspace/My-Workspace~2f4a941f-3ff6-47ae-89be-9c8fc49ae16c/collection/23033572-0a6ec33d-01ad-47d7-9210-0c034d79ab8a?action=share&source=collection_link&creator=23033572"
+	},
+	"item": [
+		{
+			"name": "Pet",
+			"item": [
+				{
+					"name": "Add new pet to store - with valid data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const tagId = Math.floor(Math.random() * 1000);\r",
+									"pm.environment.set(\"tag_id\", tagId);\r",
+									"\r",
+									"const tagName = `tag-${tagId}`;\r",
+									"pm.environment.set(\"tag_name\", tagName);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.value).to.eql(100);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 9999,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"Dog\"\r\n  },\r\n  \"name\": \"doggie\",\r\n  \"photoUrls\": [\r\n    \"https://unsplash.com/photos/a-group-of-three-cats-sitting-next-to-each-other-fXin2Kthl74\",\r\n    \"https://unsplash.com/photos/two-dogs-sitting-on-maroon-area-rug-CdK2eYhWfQ0\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\":{{tag_id}},\r\n      \"name\": \"{{tag_name}}\"\r\n    }\r\n  ],\r\n  \"status\": \"pending\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/pet",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new pet to store - with invalid data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const tagId = Math.floor(Math.random() * 1000);\r",
+									"pm.environment.set(\"tag_id\", tagId);\r",
+									"\r",
+									"const tagName = `tag-${tagId}`;\r",
+									"pm.environment.set(\"tag_name\", tagName);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\":\"200\" ,\r\n  \"category\": {\r\n    \"id\": 55,\r\n    \"name\": \"Dog\"\r\n  },\r\n  \"name\": \"123\",\r\n  \"photoUrls\": [\r\n    \"https://unsplash.com/photos/a-group-of-three-cats-sitting-next-to-each-other-fXin2Kthl74\",\r\n    \"https://unsplash.com/photos/two-dogs-sitting-on-maroon-area-rug-CdK2eYhWfQ0\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\":{{tag_id}},\r\n      \"name\": \"{{tag_name}}\"\r\n    }\r\n  ],\r\n  \"status\": \"@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/pet",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find pet by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "additionalMetadata",
+									"value": "additionalMetadata",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/gemig/Downloads/Untitled (1).pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/pet/9999",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"pet",
+								"9999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find pet by status",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"Dog\"\r\n  },\r\n  \"name\": \"doggie\",\r\n  \"photoUrls\": [\r\n    \"https://unsplash.com/photos/a-group-of-three-cats-sitting-next-to-each-other-fXin2Kthl74\",\r\n    \"https://unsplash.com/photos/two-dogs-sitting-on-maroon-area-rug-CdK2eYhWfQ0\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\":{{tag_id}},\r\n      \"name\": \"{{tag_name}}\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}"
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/pet/findByStatus?status=sold",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"pet",
+								"findByStatus"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "sold"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload an image",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "additionalMetadata",
+									"value": "additionalMetadata",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/gemig/Downloads/Untitled (1).pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/pet/9999/uploadImage",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"pet",
+								"9999",
+								"uploadImage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload an image Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "additionalMetadata",
+									"value": "Dog Image",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1f0c9de3-b930-4960-af4e-3ae9b57dfc6a"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/pet/99/uploadImage",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"pet",
+								"99",
+								"uploadImage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update status to pet",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 99,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"doggie\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"ssssssssssssss\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/pet",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"name\":\"doggieeeeeeeeeeeeeee\",\r\n    \"status\": \"availableeeeeeeeeeee\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/pet/9999",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"pet",
+								"9999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete pet with ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"name\":\"doggieeeeeeeeeeeeeee\",\r\n    \"status\": \"availableeeeeeeeeeee\"\r\n}"
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/pet/6",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"pet",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Store",
+			"item": [
+				{
+					"name": "Place an order for pet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"petId\": 9998,\r\n  \"quantity\": 23,\r\n  \"shipDate\": \"2025-11-25T11:27:35.826Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/store/order",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"store",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Purchase by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"petId\": 9998,\r\n  \"quantity\": 23,\r\n  \"shipDate\": \"2025-11-25T11:27:35.826Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}"
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/store/order/2",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"store",
+								"order",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Return pet by status",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"petId\": 9998,\r\n  \"quantity\": 23,\r\n  \"shipDate\": \"2025-11-25T11:27:35.826Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}"
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/store/inventory",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"store",
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete order by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Pet-base-url}}/store/order/1",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"store",
+								"order",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1112,\r\n  \"username\": \"Ali123\",\r\n  \"firstName\": \"Mahmoud\",\r\n  \"lastName\": \"Gamal\",\r\n  \"email\": \"Ali@gmail.com\",\r\n  \"password\": \"111\",\r\n  \"phone\": \"111\",\r\n  \"userStatus\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/user",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1112,\r\n  \"username\": \"Ali123\",\r\n  \"firstName\": \"Mahmoud\",\r\n  \"lastName\": \"Gamal\",\r\n  \"email\": \"Ali@gmail.com\",\r\n  \"password\": \"111\",\r\n  \"phone\": \"111\",\r\n  \"userStatus\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/user/ali123",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"user",
+								"ali123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logs user to system",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1112,\r\n  \"username\": \"Ali123\",\r\n  \"firstName\": \"Mahmoud\",\r\n  \"lastName\": \"Gamal\",\r\n  \"email\": \"Ali@gmail.com\",\r\n  \"password\": \"111\",\r\n  \"phone\": \"111\",\r\n  \"userStatus\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/user/login",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "log-out user to system Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1112,\r\n  \"username\": \"Ali123\",\r\n  \"firstName\": \"Mahmoud\",\r\n  \"lastName\": \"Gamal\",\r\n  \"email\": \"Ali@gmail.com\",\r\n  \"password\": \"111\",\r\n  \"phone\": \"111\",\r\n  \"userStatus\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/user/logout",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 888,\r\n  \"username\": \"Mahmoud123\",\r\n  \"firstName\": \"123\",\r\n  \"lastName\": \"123\",\r\n  \"email\": \"123@gmail.com\",\r\n  \"password\": \"123\",\r\n  \"phone\": \"123\",\r\n  \"userStatus\": 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/user/ali123",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"user",
+								"ali123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1112,\r\n  \"username\": \"Ali123\",\r\n  \"firstName\": \"Mahmoud\",\r\n  \"lastName\": \"Gamal\",\r\n  \"email\": \"Ali@gmail.com\",\r\n  \"password\": \"111\",\r\n  \"phone\": \"111\",\r\n  \"userStatus\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/user",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create list of user Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\r\n  \"id\": 1112,\r\n  \"username\": \"Ali123\",\r\n  \"firstName\": \"Mahmoud\",\r\n  \"lastName\": \"Gamal\",\r\n  \"email\": \"Ali@gmail.com\",\r\n  \"password\": \"111\",\r\n  \"phone\": \"111\",\r\n  \"userStatus\": 1\r\n},\r\n{\r\n  \"id\": 1113,\r\n  \"username\": \"ali123\",\r\n  \"firstName\": \"Maaaaahmoud\",\r\n  \"lastName\": \"Gaaaaamal\",\r\n  \"email\": \"Aali@gmail.com\",\r\n  \"password\": \"111\",\r\n  \"phone\": \"111\",\r\n  \"userStatus\": 1\r\n}\r\n\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/user/createWithArray",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"user",
+								"createWithArray"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 888,\r\n  \"username\": \"Mahmoud123\",\r\n  \"firstName\": \"123\",\r\n  \"lastName\": \"123\",\r\n  \"email\": \"123@gmail.com\",\r\n  \"password\": \"123\",\r\n  \"phone\": \"123\",\r\n  \"userStatus\": 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pet-base-url}}/user/ali123",
+							"host": [
+								"{{Pet-base-url}}"
+							],
+							"path": [
+								"user",
+								"ali123"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
